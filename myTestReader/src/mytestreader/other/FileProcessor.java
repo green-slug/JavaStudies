@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package mytestreader.tools;
+package mytestreader.other;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
@@ -12,8 +12,9 @@ import java.io.IOException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+import mytestreader.tools.MyFile;
 
-public class FileProcessor implements mytestreader.tools.FileProcessorInterface {
+public class FileProcessor implements mytestreader.other.FileProcessorInterface {
     public String folderName = "";
     public String fileName = "";
     
@@ -26,11 +27,11 @@ public class FileProcessor implements mytestreader.tools.FileProcessorInterface 
     public FileProcessor(String folderName){
         this.folderName = folderName;
         
-        readFile();
+      //  getFiles();
     }
         
     @Override
-    public List<MyFile> readFile() {
+    public List<MyFile> getFiles() {
 
        int total = 0;
        String[] parsedLines;
@@ -49,11 +50,10 @@ public class FileProcessor implements mytestreader.tools.FileProcessorInterface 
         String line = null;
         while ((line = bReader.readLine()) != null){
             messages.add(line);
-          //  parsedLines = line.split(";");
-          //  for(String parsedLine : parsedLines){System.out.println(parsedLine);
+
         }
         
-        processedFiles.add(new MyFile(getFileType(fileName), messages));
+  //      processedFiles.add(new MyFile(getFileType(fileName), messages));
         
         } catch(FileNotFoundException e) {
              System.out.println("Sorry, File Not Found: " + e.getMessage());
