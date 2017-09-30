@@ -1,0 +1,80 @@
+Client sends a request file with request(s) of one the following options
+	option 1: - invest certain amount of money for a specific stock (BUY)
+	option 2: - invest certain number of specific stocks (BUY)
+	option 3: - sell certain number of specific stocks (SELL)
+
+For each request System produces acknowledgement (sent back to the Client)
+
+Acknowledgement includes check if the request is valid
+	stock is in the list of valid stocks (configurable)
+	numbers&amounts are in valid limits (configurable, per stock)
+	if amount is populated it should be buy
+
+For each valid request System
+	produces a deal (internal, not sent to Client)
+	produces a confirmation (sent to Client)
+
+Confirmation
+for option 1: number of specific stocks bought + fees&comissions
+for option 2: cost of the buy + fees&comissions
+for option 3: proceeds from sell + fees&comissions
+
+Fees - X% of amount of money invested/cost of the buy/proceeds from sell (configurable)
+Comissions - fixed amount(Z) (configurable)
+
+Request
+- request ID
+- date of request
+- client number
+- stock (ISIN)
+- buy or sell
+- amount (for option 1, otherwise empty)
+- number of stocks (for option 2&3, otherwise empty)
+- comment
+
+Acknowledgement
+- response type = acknowledgement
+- response ID
+- date of response
+- request ID
+- acknowledgement status (Ok, Error)
+- comment (error description, empty if Ok)
+
+Deal
+- deal ID
+- date of deal (trade date)
+- settlement date = Trade date + N days (configurable, per stock)
+- client number
+- stock (ISIN)
+- buy or sell
+- amount
+- number of stocks
+- fees
+- comissions
+- comment
+
+Confirmation
+- response type = confirmation
+- response ID
+- date of response
+- request ID
+- deal ID
+- trade date
+- settlement date
+- client number
+- stock (ISIN)
+- buy or sell
+- amount
+- number of stocks
+- fees
+- comissions
+- comment
+
+Request file can contain one or more requests
+Acknowledgement file can contain one or more acknowledgements
+Confirmation file can contain one or more confirmations
+
+After each processing stage there should be log entry containing
+- stage identification
+- stage result
+- request ID
