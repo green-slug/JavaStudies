@@ -21,9 +21,13 @@ public class MyFile {
     public MyFile(String fileName){
      this.fileName = fileName;
      this.fileContent = readFileContent(fileName);
-     
-     logger.info("file " +  this.fileName + " processed"); 
-        
+
+     if (this.fileContent.isEmpty()) {
+         logger.info("No file");
+     }
+     else {
+         logger.info("File " +  this.fileName + " processed"); 
+     }     
     }
     
     public String getFileType(){
@@ -53,8 +57,6 @@ public class MyFile {
         }
         } catch(FileNotFoundException e) {
             logger.log(Level.SEVERE, "Sorry, File not found: " + e);
-            
-            //logger.info(logger.getName() + " - " + "Sorry, File not found: " + e.getMessage());
         } catch(IOException e) {
              logger.info(logger.getName()+ " - "+"Sorry, Error interacting with file: " + e.getMessage());
         } catch(Exception e) {

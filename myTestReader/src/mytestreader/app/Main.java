@@ -1,25 +1,11 @@
 package mytestreader.app;
 
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.Reader;
-import java.io.Writer;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.List;
-import mytestreader.other.FileProcessor;
 import mytestreader.tools.MyFile;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Arrays;
-import java.util.Properties;
-import java.util.logging.ConsoleHandler;
 import java.util.logging.FileHandler;
 import java.util.logging.Formatter;
-import java.util.logging.Handler;
 import java.util.logging.Level;
-import java.util.logging.LogManager;
-import java.util.logging.Logger;
 import mytestreader.tools.Configuration;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
@@ -33,7 +19,8 @@ public class Main {
     public static void main(String[] args) {
 
         logger = Logger.getLogger("mytestreader");
-        logger.setUseParentHandlers(false);//to switch off root logging to console
+        logger.setUseParentHandlers(false);// switch off root logging to console
+        System.setProperty("java.util.logging.SimpleFormatter.format", "%1$tF %1$tT - %4$s - %2$s - %5$s%6$s%n");
         
         try {
             FileHandler fileHandler = new FileHandler("test.log", false);        
@@ -59,7 +46,7 @@ public class Main {
       //          System.out.println(test);   
       //  }
         
-        logger.info("TestReader ENDED");
+        logger.info("TestReader STOPPED");
     }
 }
 
