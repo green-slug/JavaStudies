@@ -5,6 +5,8 @@
  */
 package mytestreader.tools;
 
+import java.util.logging.Logger;
+
 
 public class ResponseDeal implements MessageInterface{
 
@@ -19,8 +21,19 @@ public class ResponseDeal implements MessageInterface{
     Double quantity = 0.0;
     String comment = "";
     String relatedID = "";
+
+    static final Logger logger = Logger.getLogger(MyFile.class.getName());
     
-   @Override
+    ResponseDeal(MessageInterface message) {
+        setType();
+        logger.info("Deal created");
+    }
+    
+    private void setType(){
+        this.type = "Deal";
+    }
+    
+    @Override
     public String getType() {
         return this.type;
     }

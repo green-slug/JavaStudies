@@ -48,8 +48,7 @@ public class Configuration {
             
                 folderName = props.getProperty("folderName");
                 fileName = folderName + props.getProperty("fileName");
-                System.out.println(fileName);
-        
+
                 userProps  = props;
             }
         } catch (IOException ex) {

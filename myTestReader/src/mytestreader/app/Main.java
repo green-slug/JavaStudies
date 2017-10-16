@@ -10,7 +10,9 @@ import mytestreader.tools.Configuration;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import mytestreader.tools.MessageInterface;
+import mytestreader.tools.Request;
 import mytestreader.tools.ResponseAckn;
+import mytestreader.tools.ResponseConfirm;
 
 public class Main {
     
@@ -27,24 +29,22 @@ public class Main {
             Formatter formatter = new SimpleFormatter();
             fileHandler.setFormatter(formatter);
             logger.addHandler(fileHandler);
-        } catch (IOException ex) {
-            Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SecurityException ex) {
+        } catch (IOException | SecurityException ex) {
             Logger.getLogger(Main.class.getName()).log(Level.SEVERE, null, ex);
         }
         
         logger.info("TestReader STARTED");
         
-        MessageInterface message = new ResponseAckn();
-        
         Configuration configuration = new Configuration();
         
         MyFile file = new MyFile(configuration.getFileName());
-        List<String> testOutput = file.getFileContent();
+        List<String> fileContent = file.getFileContent();
         
-      //  for (String test:testOutput) {
-      //          System.out.println(test);   
-      //  }
+        for (String line : fileContent) {
+                MessageInterface request = new Request(line);
+                MessageInterface acknowledgement = new ResponseAckn(request);
+                MessageInterface confirmation = new ResponseConfirm(request);
+        }
         
         logger.info("TestReader STOPPED");
     }

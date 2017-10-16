@@ -5,6 +5,12 @@
  */
 package mytestreader.tools;
 
+import static java.lang.Double.parseDouble;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Logger;
+import static mytestreader.tools.Request.logger;
+
 
 public class ResponseAckn implements MessageInterface {
 
@@ -20,21 +26,39 @@ public class ResponseAckn implements MessageInterface {
     String comment = "";
     String relatedID = "";
     
+    static final Logger logger = Logger.getLogger(MyFile.class.getName());
+    
     public ResponseAckn(){
-     setType();
+        setType();
+        logger.info("Acknowledgement created");
     }
     
     public ResponseAckn(MessageInterface message){
+        
         setType();
-        message.getClientNumber();
-        System.out.println(getType() + message.getClientNumber());
-    }
-
-   
-    void setType(){
-        this.type = "Acknowledgement";
+        setSubType(message.getSubType());
+        setID(message.getID());
+        setDate(message.getDate());
+        setClientNumber(message.getClientNumber());
+        setStock(message.getStock());
+        setBuySellFlag(message.getBuySellFlag());
+        setAmount(message.getAmount());
+        setQuantity(message.getQuantity());
+        setComment(message.getComment());
+        setRelatedID(message.getRelatedID());
+        
+        logger.info("Acknowledgement " + message.getID() + " created");
     }
     
+    @Override
+    public void readMessage(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public String createMessage(String message) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
     
     @Override
     public String getType() {
@@ -90,15 +114,50 @@ public class ResponseAckn implements MessageInterface {
     public String getRelatedID() {
         return this.relatedID;
     }
-
-    @Override
-    public void readMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    
+    private void setType(){
+        this.type = "Acknowledgement";
+    }
+    
+    private void setSubType(String subType) {
+        this.subType = subType;
     }
 
-    @Override
-    public String createMessage(String message) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private void setID(String ID) {
+        this.ID = ID;
     }
+
+    private void setDate(String date) {
+        this.date = date;
+    }
+
+    private void setClientNumber(String clientNumber) {
+        this.clientNumber = clientNumber;
+    }
+
+    private void setStock(String stock) {
+        this.stock = stock;
+    }
+
+    private void setBuySellFlag(String buySellFlag) {
+        this.buySellFlag = buySellFlag;
+    }
+
+    private void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    private void setQuantity(Double quantity) {
+        this.quantity = quantity;
+    }
+
+    private void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    private void setRelatedID(String relatedID) {
+        this.relatedID = relatedID;
+    }
+
 }
 

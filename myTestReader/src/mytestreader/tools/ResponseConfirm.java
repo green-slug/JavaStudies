@@ -5,6 +5,8 @@
  */
 package mytestreader.tools;
 
+import java.util.logging.Logger;
+
 
 public class ResponseConfirm implements MessageInterface{
     
@@ -20,15 +22,20 @@ public class ResponseConfirm implements MessageInterface{
     String comment = "";
     String relatedID = "";
     
+    static final Logger logger = Logger.getLogger(MyFile.class.getName());
+        
     public ResponseConfirm(){
         setType();
     }
     
     public ResponseConfirm(MessageInterface message){
         setType();
+        logger.info("Confirmation created");
+        
+        MessageInterface deal = new ResponseDeal(message);
     }
     
-    void setType(){
+    private void setType(){
         this.type = "Confirmation";
     }
     

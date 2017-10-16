@@ -14,7 +14,7 @@ public class MyFile {
     List<String> fileContent = null; //blablabl in the file
     String fileType = ""; //F02, F09, F15; config; stock_universe
 
-    static Logger logger = Logger.getLogger(MyFile.class.getName());
+    static final Logger logger = Logger.getLogger(MyFile.class.getName());
     
     public MyFile(){}
     
@@ -26,7 +26,7 @@ public class MyFile {
          logger.info("No file");
      }
      else {
-         logger.info("File " +  this.fileName + " processed"); 
+         logger.log(Level.INFO, "File processed: {0}", this.fileName); 
      }     
     }
     
@@ -45,22 +45,22 @@ public class MyFile {
     public List<String> readFileContent(String fileName){
 /**reads content from file-system file "fileName"
  *and returns content as array of string lines*/
-            List<String> messages = new ArrayList<String>();
+        List<String> messages = new ArrayList<String>();
 
-
-    
-    try {
-        BufferedReader bReader = new BufferedReader(new FileReader(this.fileName));
-        String line = null;
-        while ((line = bReader.readLine()) != null){
-            messages.add(line);
-        }
+        try {
+            BufferedReader bReader = new BufferedReader(new FileReader(this.fileName));
+            String line = null;
+            while ((line = bReader.readLine()) != null){
+                if ( (line.indexOf("HEADER") != 0) ) {
+                    messages.add(line);
+                }
+            }
         } catch(FileNotFoundException e) {
-            logger.log(Level.SEVERE, "Sorry, File not found: " + e);
+            logger.log(Level.SEVERE, "Sorry, File not found: {0}", e);
         } catch(IOException e) {
-             logger.info(logger.getName()+ " - "+"Sorry, Error interacting with file: " + e.getMessage());
+             logger.log(Level.INFO,"{0}"+" - " + "Sorry, Error interacting with file: {1}", new Object[]{logger.getName(), e.getMessage()});
         } catch(Exception e) {
-             logger.info(logger.getName()+ " - "+e.getMessage());
+             logger.log(Level.INFO, "{0} - {1}", new Object[]{logger.getName(), e.getMessage()});
         } 
         return messages;
     }
