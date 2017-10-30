@@ -24,10 +24,10 @@ public class FileProcessor implements mytestreader.other.FileProcessorInterface 
     public void setFolderName(String folderName) {this.folderName = folderName;}
     
     public FileProcessor(){}
+    
     public FileProcessor(String folderName){
         this.folderName = folderName;
-        
-      //  getFiles();
+
     }
         
     @Override
@@ -45,28 +45,12 @@ public class FileProcessor implements mytestreader.other.FileProcessorInterface 
        try {
         this.fileName = file.getName();
         
-        BufferedReader bReader = new BufferedReader(new FileReader(folderName + "\\" + fileName));
-        
-        String line = null;
-        while ((line = bReader.readLine()) != null){
-            messages.add(line);
-
-        }
-        
-  //      processedFiles.add(new MyFile(getFileType(fileName), messages));
-        
-        } catch(FileNotFoundException e) {
-             System.out.println("Sorry, File Not Found: " + e.getMessage());
-        } catch(IOException e) {
-             System.out.println("Sorry, Error interacting with file: " + e.getMessage());
+        String filePath = folderName + "\\" + fileName;
+        processedFiles.add(new MyFile(filePath));
         } catch(Exception e) {
              System.out.println(e.getMessage());
         } 
         }
-       
-       
-       
-       
        return processedFiles;
     }
 

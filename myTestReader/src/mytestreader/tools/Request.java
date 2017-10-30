@@ -6,6 +6,7 @@
 package mytestreader.tools;
 
 import static java.lang.Double.parseDouble;
+import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -29,7 +30,7 @@ public class Request implements MessageInterface {
     String comment = "";
     String relatedID = "";
     
-    static final Logger logger = Logger.getLogger(MyFile.class.getName());
+    static final Logger logger = Logger.getLogger(Request.class.getName());
     
     public Request(){}
     
@@ -57,7 +58,7 @@ public class Request implements MessageInterface {
         
             logger.info("message parsed");
          }
-        
+    
     @Override
     public String createMessage(String message) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

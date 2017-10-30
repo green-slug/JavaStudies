@@ -9,10 +9,13 @@ import java.util.logging.Level;
 import mytestreader.tools.Configuration;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
+import mytestreader.other.FileProcessor;
+import mytestreader.other.FileProcessorInterface;
 import mytestreader.tools.MessageInterface;
 import mytestreader.tools.Request;
 import mytestreader.tools.ResponseAckn;
 import mytestreader.tools.ResponseConfirm;
+import mytestreader.tools.Stock;
 
 public class Main {
     
@@ -37,19 +40,33 @@ public class Main {
         
         Configuration configuration = new Configuration();
         
-        MyFile file = new MyFile(configuration.getFileName());
+        FileProcessorInterface processedFolder = new FileProcessor(configuration.getFolderName());
+        List<MyFile> files = processedFolder.getFiles();
+        
+        for (MyFile file : files) {
+        
+
+        logger.info("Reading file: " + file.getFileName());
+        
         List<String> fileContent = file.getFileContent();
         
-        for (String line : fileContent) {
+        if (file.getFileName().indexOf("STK") > 0){ //rewrite for getFileType
+                Stock stock = new Stock(fileContent);
+        } 
+        
+        if (file.getFileName().indexOf("F02") > 0){ //rewrite for getFileType
+        
+            for (String line : fileContent) {
                 MessageInterface request = new Request(line);
                 MessageInterface acknowledgement = new ResponseAckn(request);
                 MessageInterface confirmation = new ResponseConfirm(request);
+            }  
         }
-        
-        logger.info("TestReader STOPPED");
     }
+           
+        logger.info("TestReader STOPPED");
 }
-
+}
 
 
 

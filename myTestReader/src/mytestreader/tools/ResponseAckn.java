@@ -6,6 +6,8 @@
 package mytestreader.tools;
 
 import static java.lang.Double.parseDouble;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.logging.Logger;
@@ -47,8 +49,14 @@ public class ResponseAckn implements MessageInterface {
         setComment(message.getComment());
         setRelatedID(message.getRelatedID());
         
+  
         logger.info("Acknowledgement " + message.getID() + " created");
     }
+
+    
+
+    
+    
     
     @Override
     public void readMessage(String message) {
@@ -161,3 +169,17 @@ public class ResponseAckn implements MessageInterface {
 
 }
 
+/*
+    void fieldInfo(Object obj) {
+        Class<?> theClass = obj.getClass();
+        Field[] fields = theClass.getFields();
+        //displayFields(fields);
+        Field[] declaredFields = theClass.getDeclaredFields();
+        displayFields(declaredFields);
+      }
+  
+    void displayFields(Field[] arr) {
+        for(Field f:arr)
+        System.out.println(f.getName() + " : " + f.getType());
+    } 
+*/

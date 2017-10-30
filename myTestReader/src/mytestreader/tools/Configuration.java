@@ -36,6 +36,13 @@ public class Configuration {
         } catch (IOException ex) {
             logger.log(Level.SEVERE, null, ex);
         }
+        
+        
+        
+        
+        
+        
+        
 }
     
     private static Properties loadUserProps(Properties userProps) throws IOException{
